@@ -28,7 +28,7 @@ function App(): React.JSX.Element {
             </Container>
             <header className="App-header">
                 <span style={{ color: "red" }}>
-                    Rashard UD CISC275 with React Hooks and TypeScript
+                    Rashards UD CISC275 with React Hooks and TypeScript
                 </span>
             </header>
             <h1>This will be a great semester!</h1>
