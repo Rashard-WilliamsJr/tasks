@@ -1,5 +1,8 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.quickSuggestions": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.inlineSuggest.enabled": false,
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
