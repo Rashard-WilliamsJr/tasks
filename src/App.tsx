@@ -8,32 +8,25 @@ import "./App.css";
 function App(): React.JSX.Element {
     return (
         <div className="App">
-            <Container>
-                <Row>
-                    <Col
-                        style={{
-                            width: "50px",
-                            height: "50px",
-                            backgroundColor: "red",
-                        }}
-                    ></Col>
-                    <Col
-                        style={{
-                            width: "50px",
-                            height: "50px",
-                            backgroundColor: "red",
-                        }}
-                    ></Col>
-                </Row>
-            </Container>
             <header className="App-header">
                 <span style={{ color: "red" }}>
                     Rashards UD CISC275 with React Hooks and TypeScript
                 </span>
+                <Container>
+                    <Row>
+                        <Col
+                            style={{
+                                width: "50px",
+                                height: "175px",
+                                backgroundColor: "red",
+                            }}
+                        ></Col>
+                    </Row>
+                </Container>
             </header>
             <h1>This will be a great semester!</h1>
             <img
-                src="C:\Users\rwill\tasks\public\logo512.png"
+                src={process.env.PUBLIC_URL + "/logo512.png"}
                 alt="symbol of React"
             />
             <ul>
