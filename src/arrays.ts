@@ -5,7 +5,14 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    let newArray: number[] = [];
+    if (numbers.length === 0) {
+        numbers;
+    } else {
+        newArray.push(numbers[0]);
+        newArray.push(numbers[numbers.length - 1]);
+    }
+    return newArray;
 }
 
 /**
@@ -13,7 +20,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const clonedNumbers = [...numbers];
+    return clonedNumbers.map((value: number): number => value * 3);
 }
 
 /**
@@ -21,7 +29,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const dupNumbers = [...numbers];
+    return dupNumbers.map((num: string): number =>
+        parseInt(num) ? parseInt(num) : 0,
+    );
 }
 
 /**
@@ -32,7 +43,15 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    const clonedAmounts = [...amounts];
+    const defualt: number = 0;
+    let removeDollarSign: string[] = clonedAmounts.map(
+        (dollar: string): string =>
+            dollar[0] === "$" ? dollar.slice(1, dollar.length) : dollar,
+    );
+    return removeDollarSign.map((money: string): number =>
+        parseInt(money) ? parseInt(money) : defualt,
+    );
 };
 
 /**
@@ -41,7 +60,13 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const clonedMessages = [...messages];
+    const noQuestions: string[] = clonedMessages.filter(
+        (message: string): boolean => message[message.length - 1] !== "?",
+    );
+    return noQuestions.map((message: string): string =>
+        message[message.length - 1] === "!" ? message.toUpperCase() : message,
+    );
 };
 
 /**
@@ -49,7 +74,10 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    const shortWords: string[] = words.filter(
+        (word: string): boolean => word.length < 4,
+    );
+    return shortWords.length;
 }
 
 /**
@@ -58,7 +86,13 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const clonedColors = [...colors];
+    return clonedColors.every(
+        (color: string): boolean =>
+            color.toUpperCase() === "RED" ||
+            color.toUpperCase() === "GREEN" ||
+            color.toUpperCase() === "BLUE",
+    );
 }
 
 /**
@@ -69,7 +103,16 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    const dupAddends = [...addends];
+    let sum: number = dupAddends.reduce(
+        (total: number, num: number): number => (total += num),
+    );
+    let sumString: string = dupAddends.join("+");
+    let statement: string = `${sum.toString()}=${sumString}`;
+    return statement;
 }
 
 /**
@@ -82,5 +125,33 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    let dupNums = [...values];
+    let finalList = [...values];
+    let ifNegative: boolean = dupNums.some(
+        (value: number): boolean => value < 0,
+    );
+    if (dupNums.length === 0) {
+        return [0];
+    } else if (ifNegative) {
+        let negativeIndex: number = dupNums.findIndex(
+            (value: number): boolean => value < 0,
+        );
+        if (negativeIndex === 0) {
+            finalList.splice(negativeIndex + 1, 0, 0);
+        } else {
+            let beforeNegative: number[] = dupNums.splice(0, negativeIndex);
+            let sum: number = beforeNegative.reduce(
+                (total: number, num: number): number => (total += num),
+                0,
+            );
+            finalList.splice(negativeIndex + 1, 0, sum);
+            return finalList;
+        }
+    } else {
+        let totalSum: number = dupNums.reduce(
+            (maxTotal: number, val: number): number => (maxTotal += val),
+        );
+        finalList.push(totalSum);
+    }
+    return finalList;
 }
