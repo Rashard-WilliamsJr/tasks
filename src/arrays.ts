@@ -30,9 +30,7 @@ export function tripleNumbers(numbers: number[]): number[] {
  */
 export function stringsToIntegers(numbers: string[]): number[] {
     const dupNumbers = [...numbers];
-    return dupNumbers.map((num: string): number =>
-        parseInt(num) ? parseInt(num) : 0,
-    );
+    return dupNumbers.map((num: string): number => (+num ? +num : 0));
 }
 
 /**
@@ -50,7 +48,7 @@ export const removeDollars = (amounts: string[]): number[] => {
             dollar[0] === "$" ? dollar.slice(1, dollar.length) : dollar,
     );
     return removeDollarSign.map((money: string): number =>
-        parseInt(money) ? parseInt(money) : defualt,
+        +money ? +money : defualt,
     );
 };
 
