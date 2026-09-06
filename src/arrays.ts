@@ -5,14 +5,13 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    let newArray: number[] = [];
-    if (numbers.length === 0) {
-        numbers;
-    } else {
-        newArray.push(numbers[0]);
-        newArray.push(numbers[numbers.length - 1]);
-    }
-    return newArray;
+    const copy: number[] = [...numbers];
+    return copy.length !== 1 ?
+            copy.filter(
+                (num: number): boolean =>
+                    copy[0] === num || copy[copy.length - 1] === num,
+            )
+        :   [...copy, ...copy];
 }
 
 /**
@@ -42,13 +41,12 @@ export function stringsToIntegers(numbers: string[]): number[] {
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
     const clonedAmounts = [...amounts];
-    const defualt: number = 0;
-    let removeDollarSign: string[] = clonedAmounts.map(
+    const removeDollarSign: string[] = clonedAmounts.map(
         (dollar: string): string =>
             dollar[0] === "$" ? dollar.slice(1, dollar.length) : dollar,
     );
     return removeDollarSign.map((money: string): number =>
-        +money ? +money : defualt,
+        +money ? +money : 0,
     );
 };
 
@@ -101,16 +99,16 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    if (addends.length === 0) {
-        return "0=0";
-    }
     const dupAddends = [...addends];
-    let sum: number = dupAddends.reduce(
-        (total: number, num: number): number => (total += num),
-    );
-    let sumString: string = dupAddends.join("+");
-    let statement: string = `${sum.toString()}=${sumString}`;
-    return statement;
+    const sum: number =
+        dupAddends.length === 0 ?
+            0
+        :   dupAddends.reduce(
+                (total: number, num: number): number => total + num,
+                0,
+            );
+    const sumString: string = dupAddends.join("+");
+    return addends.length === 0 ? "0=0" : `${sum.toString()}=${sumString}`;
 }
 
 /**
@@ -123,33 +121,21 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    let dupNums = [...values];
-    let finalList = [...values];
-    let ifNegative: boolean = dupNums.some(
-        (value: number): boolean => value < 0,
+    const dupValues: number[] = [...values];
+    const finalList: number[] = [...values];
+    const ifNegative: boolean = dupValues.some(
+        (val: number): boolean => val < 0,
     );
-    if (dupNums.length === 0) {
-        return [0];
-    } else if (ifNegative) {
-        let negativeIndex: number = dupNums.findIndex(
-            (value: number): boolean => value < 0,
-        );
-        if (negativeIndex === 0) {
-            finalList.splice(negativeIndex + 1, 0, 0);
-        } else {
-            let beforeNegative: number[] = dupNums.splice(0, negativeIndex);
-            let sum: number = beforeNegative.reduce(
-                (total: number, num: number): number => (total += num),
-                0,
-            );
-            finalList.splice(negativeIndex + 1, 0, sum);
-            return finalList;
-        }
-    } else {
-        let totalSum: number = dupNums.reduce(
-            (maxTotal: number, val: number): number => (maxTotal += val),
-        );
-        finalList.push(totalSum);
-    }
+    const firstNeg: number = dupValues.findIndex(
+        (val: number): boolean => val < 0,
+    );
+    ifNegative ? dupValues.splice(firstNeg, dupValues.length) : dupValues;
+    const sum: number = dupValues.reduce(
+        (total: number, val: number): number => total + val,
+        0,
+    );
+    ifNegative ?
+        finalList.splice(firstNeg + 1, 0, sum)
+    :   finalList.splice(finalList.length, 0, sum);
     return finalList;
 }
