@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 
-const PEOPLE = [
+const PEOPLE: string[] = [
     "Alan Turing",
     "Grace Hopper",
     "Ada Lovelace",
@@ -11,21 +11,19 @@ const PEOPLE = [
 ];
 
 export function ChooseTeam(): React.JSX.Element {
-    const [allOptions, setAllOptions] = useState<string[]>(PEOPLE);
+    /*const [allOptions, setAllOptions] = useState<string[]>(PEOPLE);*/
     const [team, setTeam] = useState<string[]>([]);
 
-    function chooseMember() {
-        /*
+    function chooseMember(newMember: string) {
         if (!team.includes(newMember)) {
-            team.push(newMember);
+            const newTeam = [...team, newMember];
+            setTeam(newTeam);
         }
-        */
     }
 
     function clearTeam() {
-        /*
-        team = [];
-        */
+        const emptyTeam: string[] = [];
+        setTeam(emptyTeam);
     }
 
     return (
@@ -33,10 +31,15 @@ export function ChooseTeam(): React.JSX.Element {
             <h3>Choose Team</h3>
             <Row>
                 <Col>
-                    {allOptions.map((option: string) => (
+                    {PEOPLE.map((option: string) => (
                         <div key={option} style={{ marginBottom: "4px" }}>
                             Add{" "}
-                            <Button onClick={chooseMember} size="sm">
+                            <Button
+                                onClick={() => {
+                                    chooseMember(option);
+                                }}
+                                size="sm"
+                            >
                                 {option}
                             </Button>
                         </div>
